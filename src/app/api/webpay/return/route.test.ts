@@ -75,3 +75,18 @@ describe('Webpay return Route Handler — GET', () => {
     expect(loc.pathname).toBe('/error');
   });
 });
+
+describe('Webpay return Route Handler — base URL fallback', () => {
+  it('falls back to the request origin when NEXT_PUBLIC_BASE_URL is unset', async () => {
+    delete process.env.NEXT_PUBLIC_BASE_URL;
+    const origin = 'https://request-origin.example';
+    const req = postReq(`${origin}/api/webpay/return?purchaseId=pur-7`, { token_ws: 'tok-fb' });
+    const res = await POST(req);
+    expect(res.status).toBe(303);
+    const loc = new URL(res.headers.get('location')!);
+    expect(loc.origin).toBe(origin);
+    expect(loc.pathname).toBe('/confirmation');
+    expect(loc.searchParams.get('purchaseId')).toBe('pur-7');
+    expect(loc.searchParams.get('token_ws')).toBe('tok-fb');
+  });
+});

@@ -45,7 +45,9 @@ export async function createPurchase(
   }
 
   // Create-or-retrieve an unpaid purchase by (userId, coursesIds).
-  let purchase = await prisma.purchase.findFirst({ where: { userId, coursesIds: { equals: coursesIds } } });
+  let purchase = await prisma.purchase.findFirst({
+    where: { userId, coursesIds: { equals: coursesIds }, isPaid: false },
+  });
   if (!purchase) {
     purchase = await prisma.purchase.create({
       data: { userId, coursesIds, buyOrder: generateBuyOrder() },
@@ -58,7 +60,7 @@ export async function createPurchase(
 
   const totalAmount = courses.reduce((sum, c) => sum + c.price, 0);
   const webPayResponse = await createWebpayTransaction(
-    purchase.buyOrder ?? generateBuyOrder(),
+    purchase.buyOrder!,
     purchase.userId,
     totalAmount,
     returnUrlFor(purchase.id),
@@ -199,7 +201,10 @@ export async function confirmPurchase(
 
     return ok({ purchase: updated, transactionStatus });
   } catch (error) {
-    return fail((error as Error).message, 400);
+    // Distinguish the oversell business error (400) from unexpected/infra failures (500).
+    const msg = error instanceof Error ? error.message : 'Transaction failed';
+    const status = msg === 'One or more courses are full' ? 400 : 500;
+    return fail(msg, status);
   }
 }
 

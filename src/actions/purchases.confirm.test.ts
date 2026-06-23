@@ -193,4 +193,22 @@ describe('confirmPurchase', () => {
     expect(res.ok).toBe(true);
     expect(tx.enrollment.create).toHaveBeenCalledTimes(2); // purchased + core both enrolled
   });
+
+  it('returns 500 when an unexpected error is thrown inside the transaction (infra failure)', async () => {
+    prismaMock.purchase.findUnique.mockResolvedValue({ id: 'p1', userId: USER, isPaid: false, coursesIds: [PURCHASED] });
+    mockCommitWebpay.mockResolvedValue({ status: 'AUTHORIZED' });
+
+    const tx = makeTx({
+      purchase: { update: vi.fn().mockRejectedValue(new Error('connection reset')) },
+    });
+    prismaMock.$transaction.mockImplementation(async (fn: (tx: unknown) => Promise<unknown>) => fn(tx));
+
+    const res = await confirmPurchase('p1', 'tok');
+
+    expect(res.ok).toBe(false);
+    if (!res.ok) {
+      expect(res.status).toBe(500);
+      expect(res.error).toBe('connection reset');
+    }
+  });
 });

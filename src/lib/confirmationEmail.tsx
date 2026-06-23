@@ -8,8 +8,6 @@ export interface ConfirmationEmailInput {
   courses: EmailCourse[];
 }
 
-const LOGO_URL = 'https://web.ccemuc.cl/_next/static/media/logo.45d46028.png';
-
 /**
  * Server-side replacement for the legacy <EmailConfirmation /> React component
  * (which the old frontend rendered with ReactDOMServer.renderToStaticMarkup and
@@ -44,7 +42,7 @@ export function buildConfirmationEmailHtml({ id, courses }: ConfirmationEmailInp
 </head>
 <body>
   <div style="background-color:#e9ecef;">
-    <h1 style="margin:0;font-size:32px;font-weight:700;">Confirmante de pago</h1>
+    <h1 style="margin:0;font-size:32px;font-weight:700;">Confirmación de pago</h1>
     <p style="margin:0;">Se ha confirmado el pago de tu inscripción.</p>
     <p style="margin:0;">Tu código de confirmación es: ${id}</p>
     <table width="100%">

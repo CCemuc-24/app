@@ -1,0 +1,75 @@
+// CCemuc Prisma schema — exact mirror of ccemuc-api/src/models/*.model.ts
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")  // pooled (PgBouncer) — runtime
+  directUrl = env("DIRECT_URL")    // direct — migrations & seed
+}
+
+enum CourseType {
+  core
+  elective
+  workshop
+}
+
+model User {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  names       String
+  lastNames   String
+  rut         String   @unique
+  email       String   @unique
+  university  String
+  carrerYear  Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  enrollments Enrollment[]
+  purchases   Purchase[]
+}
+
+model Course {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  module      Int
+  type        CourseType
+  price       Int
+  capacity    Int
+  features    Json?
+  week        Int
+  topics      String[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  enrollments Enrollment[]
+}
+
+model Purchase {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId      String   @db.Uuid
+  buyOrder    String?
+  isPaid      Boolean  @default(false)
+  coursesIds  String[] @db.Uuid
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  enrollments Enrollment[]
+}
+
+model Enrollment {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String   @db.Uuid
+  courseId   String   @db.Uuid
+  purchaseId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId], name: "UserCourseUnique")
+}

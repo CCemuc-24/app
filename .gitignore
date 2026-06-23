@@ -51,3 +51,5 @@ next-env.d.ts
 
 # task briefs / superpowers scratch (never commit)
 .superpowers/
+
+/src/generated/prisma

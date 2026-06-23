@@ -11,7 +11,7 @@ import {
  * WEBPAY_ENVIRONMENT=production -> Environment.Production with WEBPAY_COMMERCE_CODE / WEBPAY_API_KEY.
  * Otherwise -> Environment.Integration, defaulting to the SDK's integration test creds when unset.
  */
-export function getWebpayTransaction(): WebpayPlus.Transaction {
+export function getWebpayTransaction(): InstanceType<typeof WebpayPlus.Transaction> {
   const isProduction = process.env.WEBPAY_ENVIRONMENT === 'production';
 
   const commerceCode = isProduction

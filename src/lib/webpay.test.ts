@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 const optionsSpy = vi.fn();
 const txInstance = { create: vi.fn(), commit: vi.fn() };
-const txSpy = vi.fn(() => txInstance);
+const txSpy = vi.fn((_options?: unknown) => txInstance);
 
 vi.mock('transbank-sdk', () => {
   class Options {

@@ -56,7 +56,7 @@ const OrderError: React.FC = () => {
           <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
             Ha ocurrido un error en la compra
           </p>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<p>Cargando...</p>}>
             <ErrorMessage />
           </Suspense>
           <Suspense>

@@ -38,7 +38,7 @@ describe('buildConfirmationEmailHtml', () => {
 
   it('renders a full HTML document with the CCEMUC footer', () => {
     const html = buildConfirmationEmailHtml({ id: 'x', courses: [] });
-    expect(html).toContain('Confirmante de pago');
+    expect(html).toContain('Confirmación de pago');
     expect(html).toContain('Has recibido este correo por tu reciente compra');
     expect(html).toContain('https://web.ccemuc.cl/');
   });

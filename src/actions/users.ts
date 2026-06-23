@@ -10,6 +10,7 @@ import {
   type UserCreateInput,
   type UserUpdateInput,
 } from '@/schemas/user';
+import { assertAdmin } from '@/lib/auth';
 
 export type { User };
 
@@ -116,5 +117,30 @@ export async function updateUser(
       return fail(`${field} must be unique`, 409, field);
     }
     return fail((error as Error).message ?? 'Failed to update user', 400);
+  }
+}
+
+export async function deleteUser(
+  id: string,
+  adminSecret: string,
+): Promise<ActionResult<null>> {
+  try {
+    assertAdmin(adminSecret);
+  } catch {
+    return fail('Unauthorized', 403);
+  }
+
+  try {
+    await prisma.user.delete({ where: { id } });
+    return ok(null);
+  } catch (error) {
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      (error as { code?: unknown }).code === 'P2025'
+    ) {
+      return fail('User not found', 404);
+    }
+    return fail((error as Error).message ?? 'Failed to delete user', 400);
   }
 }

@@ -12,8 +12,19 @@ vi.mock('@/lib/prisma', () => ({
   },
 }));
 
+vi.mock('@/lib/auth', () => ({
+  assertAdmin: vi.fn(),
+  UnauthorizedError: class UnauthorizedError extends Error {
+    constructor(message = 'Unauthorized') {
+      super(message);
+      this.name = 'UnauthorizedError';
+    }
+  },
+}));
+
 import { prisma } from '@/lib/prisma';
-import { createUser, getUsers, getUserById, getUserByRut, updateUser } from './users';
+import { assertAdmin, UnauthorizedError } from '@/lib/auth';
+import { createUser, getUsers, getUserById, getUserByRut, updateUser, deleteUser } from './users';
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -212,5 +223,44 @@ describe('updateUser', () => {
       expect(res.field).toBe('rut');
     }
     expect(prisma.user.update).not.toHaveBeenCalled();
+  });
+});
+
+describe('deleteUser', () => {
+  it('deletes the user and returns ok(null) when admin secret is valid', async () => {
+    (assertAdmin as any).mockReturnValue(undefined);
+    (prisma.user.delete as any).mockResolvedValue({});
+
+    const res = await deleteUser('u1', 'valid-secret');
+
+    expect(res).toEqual({ ok: true, data: null });
+    expect(assertAdmin).toHaveBeenCalledWith('valid-secret');
+    expect(prisma.user.delete).toHaveBeenCalledWith({ where: { id: 'u1' } });
+  });
+
+  it('fails 403 when assertAdmin throws UnauthorizedError', async () => {
+    (assertAdmin as any).mockImplementation(() => {
+      throw new UnauthorizedError('Unauthorized');
+    });
+
+    const res = await deleteUser('u1', 'wrong-secret');
+
+    expect(res.ok).toBe(false);
+    if (!res.ok) {
+      expect(res.status).toBe(403);
+    }
+    expect(prisma.user.delete).not.toHaveBeenCalled();
+  });
+
+  it('fails 404 when Prisma throws P2025 (record not found)', async () => {
+    (assertAdmin as any).mockReturnValue(undefined);
+    (prisma.user.delete as any).mockRejectedValue({ code: 'P2025' });
+
+    const res = await deleteUser('nonexistent', 'valid-secret');
+
+    expect(res.ok).toBe(false);
+    if (!res.ok) {
+      expect(res.status).toBe(404);
+    }
   });
 });

@@ -8,7 +8,7 @@ export const courseCreateSchema = z.object({
   title: z.string().min(1),
   module: z.number().int(),
   type: z.enum(courseTypeValues),
-  price: z.number().int(),
+  price: z.number().int().nonnegative(),
   capacity: z.number().int(),
   week: z.number().int(),
   features: z.record(z.string()).optional(),

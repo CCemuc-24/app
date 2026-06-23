@@ -24,6 +24,12 @@ export function getWebpayTransaction(): WebpayPlus.Transaction {
 
   const environment = isProduction ? Environment.Production : Environment.Integration;
 
+  if (isProduction && (!commerceCode || !apiKey)) {
+    throw new Error(
+      'WEBPAY_COMMERCE_CODE and WEBPAY_API_KEY are required when WEBPAY_ENVIRONMENT=production',
+    );
+  }
+
   return new WebpayPlus.Transaction(new Options(commerceCode, apiKey, environment));
 }
 

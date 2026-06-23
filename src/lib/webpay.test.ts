@@ -70,6 +70,17 @@ describe('getWebpayTransaction', () => {
     expect(txSpy).toHaveBeenCalledOnce();
     expect(tx).toBe(txInstance);
   });
+
+  it('throws fail-fast when WEBPAY_ENVIRONMENT=production but credentials are unset', async () => {
+    process.env.WEBPAY_ENVIRONMENT = 'production';
+    delete process.env.WEBPAY_COMMERCE_CODE;
+    delete process.env.WEBPAY_API_KEY;
+    const { getWebpayTransaction } = await import('./webpay');
+    expect(() => getWebpayTransaction()).toThrow(
+      'WEBPAY_COMMERCE_CODE and WEBPAY_API_KEY are required when WEBPAY_ENVIRONMENT=production',
+    );
+    expect(optionsSpy).not.toHaveBeenCalled();
+  });
 });
 
 describe('createWebpayTransaction', () => {

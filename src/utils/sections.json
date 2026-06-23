@@ -1,0 +1,35 @@
+{
+    "sections": [
+        {
+        "title": "¿Quiénes somos?",
+        "link": "/"
+        },
+        {
+        "title": "Módulos",
+        "link": "/modules"
+        },
+        {
+        "title": "Cronograma",
+        "link": "/schedule"
+        },
+        {
+        "title": "Competencia científica",
+        "link": "/about"
+        },
+        {
+        "title": "Certificados y libros",
+        "link": "/references"
+        
+        },
+        {
+        "title": "Galería",
+        "link": "/"
+        
+        },
+        {
+        "title": "Contacto",
+        "link": "/contact"
+        
+        }   
+    ]
+}

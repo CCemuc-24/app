@@ -3,6 +3,9 @@ const nextConfig = {
   // Monolith runs on the Next.js server runtime (serverless on Vercel).
   // Do NOT set output: 'export' — server actions + route handlers require the server runtime.
   reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;

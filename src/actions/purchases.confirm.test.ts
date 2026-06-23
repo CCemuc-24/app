@@ -104,7 +104,7 @@ describe('confirmPurchase', () => {
     mockCommitWebpay.mockResolvedValue({ status: 'AUTHORIZED', amount: 1000 });
 
     const tx = makeTx();
-    prismaMock.$transaction.mockImplementation(async (fn: (tx: typeof tx) => Promise<unknown>) => fn(tx));
+    prismaMock.$transaction.mockImplementation(async (fn: (tx: unknown) => Promise<unknown>) => fn(tx));
 
     const res = await confirmPurchase('p1', 'tok');
 
@@ -135,7 +135,7 @@ describe('confirmPurchase', () => {
         create: vi.fn(),
       },
     });
-    prismaMock.$transaction.mockImplementation(async (fn: (tx: typeof tx) => Promise<unknown>) => fn(tx));
+    prismaMock.$transaction.mockImplementation(async (fn: (tx: unknown) => Promise<unknown>) => fn(tx));
 
     const res = await confirmPurchase('p1', 'tok');
 
@@ -155,7 +155,7 @@ describe('confirmPurchase', () => {
       },
     });
     // $transaction propagates the thrown error (real Prisma would roll back).
-    prismaMock.$transaction.mockImplementation(async (fn: (tx: typeof tx) => Promise<unknown>) => fn(tx));
+    prismaMock.$transaction.mockImplementation(async (fn: (tx: unknown) => Promise<unknown>) => fn(tx));
 
     const res = await confirmPurchase('p1', 'tok');
 
@@ -186,7 +186,7 @@ describe('confirmPurchase', () => {
         create: vi.fn().mockResolvedValue({ id: 'e1' }),
       },
     });
-    prismaMock.$transaction.mockImplementation(async (fn: (tx: typeof tx) => Promise<unknown>) => fn(tx));
+    prismaMock.$transaction.mockImplementation(async (fn: (tx: unknown) => Promise<unknown>) => fn(tx));
 
     const res = await confirmPurchase('p1', 'tok');
 

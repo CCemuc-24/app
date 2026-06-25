@@ -1,52 +1,56 @@
 import React from 'react';
-import fondo from '@/components/images/mainPage/fondo_1.jpeg';
-import { League_Spartan } from 'next/font/google';
 import Link from 'next/link';
-
-const leagueSpartan = League_Spartan({ subsets: ['latin'] });
+import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
+import fondo from '@/components/images/mainPage/fondo_1.jpeg';
+import { IncisionDivider } from '@/components/luz/IncisionDivider';
 
 const FirstSection: React.FC = () => {
   return (
-    <div>
-      <div
-        className="relative overflow-hidden rounded-lg bg-cover bg-no-repeat p-12 text-center"
-        style={{
-          backgroundImage: `url(${fondo.src})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          width: '100vw',
-          height: '100vh',
-        }}
-      >
-        <div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed">
-          <div className="flex h-full items-center justify-center">
-            <div className="text-white">
-              <h2
-                className={`mb-1 text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-bold ${leagueSpartan.className}`}
-              >
-                I° CONGRESO DE CIRUGÍA UC
-              </h2>
-              <h2
-                className={`mb-1 text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-bold ${leagueSpartan.className}`}
-              >
-                PARA ESTUDIANTES DE MEDICINA
-              </h2>
-              <h4 className="mb-6 text-lg md:text-xl lg:text-2xl xl:text-[30px]">
-                El futuro de la cirugía: innovación y nuevas perspectivas
-              </h4>
-              <div className="flex justify-center w-full lg:w-auto">
-                <Link
-                  href="/pricing"
-                  className={`text-white bg-[#116D85] hover:bg-[#0E5A6E] focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm md:text-base lg:text-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none dark:focus:ring-gray-800 ${leagueSpartan.className}`}
-                >
-                  ¡Sé parte del Congreso!
-                </Link>
-              </div>
-            </div>
+    <section className="border-b border-border bg-background">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28">
+        <div>
+          <p className="mb-6 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+            I Congreso · 31 ago — 14 sep 2024 · Santiago
+          </p>
+          <h1 className="font-display text-4xl font-semibold leading-[1.03] tracking-tight text-foreground md:text-5xl xl:text-6xl">
+            <span className="block">I° CONGRESO DE CIRUGÍA UC</span>
+            <span className="block text-primary">PARA ESTUDIANTES DE MEDICINA</span>
+          </h1>
+          <IncisionDivider className="my-8" />
+          <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+            El futuro de la cirugía: innovación y nuevas perspectivas.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-7 py-3.5 font-medium text-primary-foreground transition-colors hover:bg-primary-700"
+            >
+              ¡Sé parte del Congreso!
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/modules"
+              className="inline-flex items-center rounded-lg border border-border px-6 py-3.5 font-medium text-foreground transition-colors hover:bg-muted"
+            >
+              Ver módulos
+            </Link>
+          </div>
+          <div className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm text-muted-foreground">
+            <span><b className="text-primary">04</b> módulos</span>
+            <span className="h-3.5 w-px bg-border" />
+            <span><b className="text-primary">02</b> workshops</span>
+            <span className="h-3.5 w-px bg-border" />
+            <span><b className="text-primary">01</b> competencia científica</span>
+          </div>
+        </div>
+        <div className="relative hidden lg:block">
+          <div className="relative h-[520px] overflow-hidden rounded-xl border border-border">
+            <Image src={fondo} alt="Cirugía en el CCEM UC" fill className="object-cover" priority />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

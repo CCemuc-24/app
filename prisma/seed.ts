@@ -12,197 +12,94 @@ type SeedCourse = {
   topics?: string[];
 };
 
-const courses: SeedCourse[] = [
+// CCEM UC 2026 (II Congreso) catalog.
+//
+// Sale model: a single ticket bundles the presential General module +
+// ONE synchronous online module (choose 1 of 3) + TWO presential workshops
+// (choose 2 of 10). Workshops are the capacity-limited item.
+//
+// `module` (1–8) selects the card image (src/components/images/cards/<n>.png).
+// Prices are 0 here because everything is bundled into one ticket — the ticket
+// price lives in the registration UI (see /pricing). Capacities: workshops 20
+// (tentative), modules generous. Topics/horarios pending from the committee.
+const GENERAL_FEATURES = {
+  Modalidad: 'Clases magistrales presenciales',
+  Lugar: 'Campus Casa Central. Auditorio por definir.',
+  Fecha: 'Sábados 26/09, 03/10, 17/10 y 24/10',
+};
+
+const SYNC_MODULES: { title: string; module: number; fecha: string }[] = [
   {
-    title: 'Módulo: Cirugía General',
+    title: 'Módulo: Ginecología y Obstetricia',
+    module: 4,
+    fecha: 'Viernes 25/09, 02/10, 09/10, 16/10 y 23/10',
+  },
+  {
+    title: 'Módulo: Cirugía Digestiva y Coloproctología',
+    module: 2,
+    fecha: 'Miércoles 23/09, 30/09, 14/10 y 21/10',
+  },
+  {
+    title: 'Módulo: Cirugía Vascular',
+    module: 5,
+    fecha: 'Jueves 24/09, 01/10, 08/10 y 15/10',
+  },
+];
+
+const WORKSHOP_TITLES: string[] = [
+  'Workshop: Tacto rectal',
+  'Workshop: Examen ginecológico',
+  'Workshop: E-FAST',
+  'Workshop: ECG en contexto quirúrgico',
+  'Workshop: Intubación',
+  'Workshop: Suturas',
+  'Workshop: RCP avanzado',
+  'Workshop: Curaciones',
+  'Workshop: Interpretación de imágenes en contexto quirúrgico',
+  'Workshop: Accesos venosos',
+];
+
+const courses: SeedCourse[] = [
+  // ── General module — included in every ticket (auto-enrolled) ──
+  {
+    title: 'Módulo General: Cirugía en pacientes complejos',
     module: 1,
     type: CourseType.core,
     price: 0,
     capacity: 1000,
     week: 0,
-    features: {
-      Modalidad: '13 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'Sábados 31/08, 07/09 y 14/09',
-      Horario: '09:00 a 14:00 hrs.',
-    },
-    topics: [
-      'Innovaciones que Cambiaron el Curso de la Medicina',
-      'Simulación y realidad virtual',
-      'Conceptos generales del Pre y Postoperatorio',
-      'Abdomen Agudo: Innovaciones en el Diagnóstico y Manejo Quirúrgico',
-      'Conceptos Básicos de Laparoscopía para Estudiantes de la Salud',
-      'Mejoras en Trasplante y Donación de Órganos',
-      'El Rol del Protocolo ERAS en la Recuperación Rápida',
-      'Cirugía robótica: avances en el estudio e implementación en Chile',
-      'Cicatrización y materiales de sutura',
-      'Inteligencia artificial en la investigación quirúrgica',
-      'FORO: Toma de decisiones difíciles en pabellón',
-      'FORO: Mujeres en cirugía',
-    ],
-  },
-  {
-    title: 'Módulo: Anestesiología',
-    module: 6,
-    type: CourseType.core,
-    price: 0,
-    capacity: 1000,
-    week: 0,
-    features: {
-      Modalidad: '5 clases on-line, asincrónico',
-      Lugar: 'Clases disponibles en plataforma.',
-    },
-    topics: [
-      'Riesgos y evaluación preoperatoria',
-      'Urgencias anestésicas',
-      'Monitorización anestésica',
-      'Manejo de la vía aérea',
-      'Mecanismos de la anestesia general',
-    ],
-  },
-  {
-    title: 'Módulo: Cirugía Digestiva y Colopractología',
-    module: 2,
-    type: CourseType.elective,
-    price: 25900,
-    capacity: 100,
-    week: 1,
-    features: {
-      Modalidad: '9 sesiones on-line sincrónicas. 3 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'L 02/09 - M 03/09 - W 04/09 - S 07/09',
-      Horario: 'L-M-W de 18:30 a 20:45 hrs. S de 12:20 a 13:50 hrs.',
-    },
-    topics: [
-      'Patología esofágica benigna',
-      'Obesidad y cirugía bariátrica',
-      'Cáncer esófagogástrico',
-      'Patología benigna biliar',
-      'Trasplante hepático',
-      'Ictericia obstructiva de origen maligno',
-      'Urgencias de colon',
-      'Cáncer de colon y recto',
-      'Técnicas básicas en Coloproctología: Hartmann, colectomías y ostomías',
-    ],
-  },
-  {
-    title: 'Módulo: Cirugía de Trauma y Urología',
-    module: 3,
-    type: CourseType.elective,
-    price: 25900,
-    capacity: 100,
-    week: 1,
-    features: {
-      Modalidad: '9 sesiones on-line sincrónicas. 3 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'L 02/09 - M 03/09 - W 04/09 - S 07/09',
-      Horario: 'L-M-W de 18:30 a 20:45 hrs. S de 12:20 a 13:50 hrs.',
-    },
-    topics: [
-      'Principales errores en la evaluación primaria de trauma',
-      'Trauma torácico',
-      'Trauma abdominal',
-      'Cirugía de control de daños',
-      'Trauma Urológico de Vía Urinaria Superior',
-      'Litiasis urinaria',
-      'Hiperplasia Prostática Benigna',
-      'Diagnóstico en Cáncer de próstata',
-      'Urgencias urológicas (tips and tricks)',
-    ],
-  },
-  {
-    title: 'Módulo: Cirugía Plástica y Cirugía Oncológica',
-    module: 4,
-    type: CourseType.elective,
-    price: 0,
-    capacity: 100,
-    week: 2,
-    features: {
-      Modalidad: '9 sesiones on-line sincrónicas. 3 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'L 09/09 - M 10/09 - W 11/09 - S 14/09',
-      Horario: 'L-M-W de 18:30 a 20:45 hrs. S de 12:20 a 13:50 hrs.',
-    },
-    topics: [
-      'Patología mamaria benigna y maligna',
-      'Melanoma y sarcomas de partes blandas',
-      'Nódulo tiroideo y cáncer de tiroides',
-      'Cáncer de cabeza y cuello',
-      'Manejo del trauma maxilofacial en la atención de urgencia',
-      'Cicatrización y heridas',
-      'Injertos y Colgajos',
-      'Quemaduras',
-      'Úlceras por presión',
-    ],
-  },
-  {
-    title: 'Módulo: Cirugía de Tórax, Cardíaca y Vascular',
-    module: 5,
-    type: CourseType.elective,
-    price: 0,
-    capacity: 100,
-    week: 2,
-    features: {
-      Modalidad: '9 sesiones on-line sincrónicas. 3 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'L 09/09 - M 10/09 - W 11/09 - S 14/09',
-      Horario: 'L-M-W de 18:30 a 20:45 hrs. S de 12:20 a 13:50 hrs.',
-    },
-    topics: [
-      'Nódulo y cáncer pulmonar',
-      'Neumotórax y pleurostomía',
-      'Derrame pleural',
-      'Patología aórtica',
-      'Cirugía Cardiovascular',
-      'Enfermedad tromboembólica',
-      'Pie diabético',
-      'Enfermedad arterial oclusiva',
-      'Abdomen agudo vascular',
-    ],
-  },
-  {
-    title: 'Workshop: Técnicas en cirugía menor',
-    module: 7,
-    type: CourseType.workshop,
-    price: 3000,
-    capacity: 100,
-    week: 3,
-    features: {
-      Modalidad: '9 sesiones on-line sincrónicas. 3 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'L 02/09 - M 03/09 - W 04/09 - S 07/09',
-      Horario: 'L-M-W de 18:30 a 20:45 hrs. S de 12:20 a 13:50 hrs.',
-    },
-  },
-  {
-    title: 'Workshop: Ultrasonido Clínico de urgencia',
-    module: 8,
-    type: CourseType.workshop,
-    price: 3000,
-    capacity: 60,
-    week: 3,
-    features: {
-      Modalidad: '9 sesiones on-line sincrónicas. 3 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'L 02/09 - M 03/09 - W 04/09 - S 07/09',
-      Horario: 'L-M-W de 18:30 a 20:45 hrs. S de 12:20 a 13:50 hrs.',
-    },
-  },
-  {
-    title: 'Curso de prueba',
-    module: 9,
-    type: CourseType.elective,
-    price: 50,
-    capacity: 1000,
-    week: 4,
-    features: {
-      Modalidad: '13 sesiones presencial',
-      Lugar: 'Campus Casa Central. Auditorio por definir.',
-      Fecha: 'Sábados 31/08, 07/09 y 14/09',
-      Horario: '09:00 a 14:00 hrs.',
-    },
+    features: GENERAL_FEATURES,
     topics: [],
   },
+  // ── Synchronous online modules — choose 1 of 3 ──
+  ...SYNC_MODULES.map((m) => ({
+    title: m.title,
+    module: m.module,
+    type: CourseType.elective,
+    price: 0,
+    capacity: 1000,
+    week: 1,
+    features: {
+      Modalidad: 'Online sincrónico',
+      Fecha: m.fecha,
+    },
+    topics: [],
+  })),
+  // ── Workshops — choose 2 of 10, presential, 24/10 ──
+  ...WORKSHOP_TITLES.map((title, i) => ({
+    title,
+    // 10 workshops cycle through the 8 available card images.
+    module: (i % 8) + 1,
+    type: CourseType.workshop,
+    price: 0,
+    capacity: 20,
+    week: 3,
+    features: {
+      Modalidad: 'Taller práctico presencial',
+      Lugar: 'Campus Casa Central. Sala por definir.',
+      Fecha: 'Sábado 24/10',
+    },
+  })),
 ];
 
 // Idempotent: only seeds when the catalog is empty. Accepts a client so it is testable.

@@ -8,7 +8,7 @@ const Countdown: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   const calculateTimeLeft = (): TimeLeft => {
-    const difference = +new Date('2024-08-31T00:00:00') - +new Date();
+    const difference = +new Date('2026-09-23T00:00:00') - +new Date();
     let result: TimeLeft = { dias: 0, horas: 0, minutos: 0, segundos: 0 };
     if (difference > 0) {
       result = {

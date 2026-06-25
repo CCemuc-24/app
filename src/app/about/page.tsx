@@ -5,15 +5,10 @@ import { SectionHeading } from '@/components/luz/SectionHeading';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const importantDates: [string, string][] = [
-  ['Publicación de bases:', 'Lunes 22 de Julio'],
-  ['Período de recepción de trabajos:', 'Jueves 1 de Agosto a Sábado 10 de Agosto o hasta alcanzar la cantidad de 100 trabajos'],
-  ['Revisión y selección de trabajos:', 'Lunes 12 a Viernes 23 de Agosto'],
-  ['Publicación trabajos seleccionados:', 'Lunes 26 de Agosto'],
-  ['Período de apelación:', 'Miércoles 28 de Agosto a Viernes 30 de Agosto (a las 23:59 hrs)'],
-  ['Fecha de presentación de trabajos (pósters):', 'Viernes 13 de Septiembre'],
-  ['Envío de certificados de participación:', 'Viernes 20 de Septiembre'],
-  ['Publicación libro resumen:', 'Viernes 20 de Septiembre'],
-  ['Período de solicitud de correcciones de certificados y libro resumen:', '5 días hábiles desde la fecha de emisión'],
+  ['Período de recepción de trabajos:', '11/07/2026 al 11/08/2026'],
+  ['Publicación de trabajos seleccionados:', '09/09/2026'],
+  ['Presentación de trabajos:', '03/10/2026'],
+  ['Presentación de finalistas:', '24/10/2026'],
 ];
 
 const AboutPage: React.FC = () => {

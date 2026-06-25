@@ -6,21 +6,24 @@ import { SectionHeading } from '@/components/luz/SectionHeading';
 const columns = [
   {
     label: 'Presencial',
-    items: ['Módulo de Cirugía General e Innovación', 'Clases magistrales de cada módulo optativo', 'Workshops'],
+    items: [
+      'Módulo General: «Cirugía en pacientes complejos»',
+      'Clases magistrales — 4 sábados',
+      '2 workshops prácticos a elección',
+    ],
   },
   {
     label: 'On-line',
     items: [
-      'Módulos optativos:',
+      'Módulo optativo sincrónico (elige 1):',
+      'Ginecología y Obstetricia',
       'Cirugía Digestiva y Coloproctología',
-      'Cirugía de Trauma y Urología',
-      'Cirugía Plástica y Oncológica',
-      'Cirugía de Tórax, Cardíaca y Vascular',
+      'Cirugía Vascular',
     ],
   },
   {
     label: 'Presencial',
-    items: ['Mejores trabajos presentados en la', 'Competencia Científica del Congreso'],
+    items: ['Competencia Científica', 'Presentación de trabajos y finalistas'],
   },
 ];
 

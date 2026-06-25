@@ -2,18 +2,27 @@ import React from 'react';
 import { SectionHeading } from '@/components/luz/SectionHeading';
 
 const schedule = [
-  { date: 'Sábado 31 de agosto', event: '1° Jornada presencial CCEM UC 2024' },
   {
-    date: 'Lun 02 — Mié 04 de septiembre',
-    event: 'Módulo Cirugía Digestiva y Coloproctología\nMódulo Cirugía de Trauma y Urología',
+    date: 'Sáb 26/09 · 03/10 · 17/10 · 24/10',
+    event: 'Módulo General presencial\n«Cirugía en pacientes complejos»',
   },
-  { date: 'Sábado 07 de septiembre', event: '2° Jornada presencial CCEM UC 2024' },
   {
-    date: 'Lun 09 — Mié 11 de septiembre',
-    event: 'Módulo Cirugía Plástica y Oncológica\nMódulo Cirugía de Tórax, Cardíaca y Vascular',
+    date: 'Mié 23/09 · 30/09 · 14/10 · 21/10',
+    event: 'Cirugía Digestiva y Coloproctología · módulo online',
   },
-  { date: 'Viernes 13 de septiembre', event: 'Competencia Científica CCEM UC' },
-  { date: 'Sábado 14 de septiembre', event: '3° Jornada presencial CCEM UC 2024' },
+  {
+    date: 'Jue 24/09 · 01/10 · 08/10 · 15/10',
+    event: 'Cirugía Vascular · módulo online',
+  },
+  {
+    date: 'Vie 25/09 · 02/10 · 09/10 · 16/10 · 23/10',
+    event: 'Ginecología y Obstetricia · módulo online',
+  },
+  { date: 'Sábado 24/10', event: 'Workshops presenciales' },
+  {
+    date: '03/10 y 24/10',
+    event: 'Competencia Científica · presentación de trabajos y finalistas',
+  },
 ];
 
 const DatesSection: React.FC = () => {

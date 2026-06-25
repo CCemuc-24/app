@@ -11,10 +11,10 @@ const FirstSection: React.FC = () => {
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28">
         <div>
           <p className="mb-6 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-            I Congreso · 31 ago — 14 sep 2024 · Santiago
+            II Congreso · 23 sep — 24 oct 2026 · Santiago
           </p>
           <h1 className="font-display text-4xl font-semibold leading-[1.03] tracking-tight text-foreground md:text-5xl xl:text-6xl">
-            <span className="block">I° CONGRESO DE CIRUGÍA UC</span>
+            <span className="block">II° CONGRESO DE CIRUGÍA UC</span>
             <span className="block text-primary">PARA ESTUDIANTES DE MEDICINA</span>
           </h1>
           <IncisionDivider className="my-8" />
@@ -39,7 +39,7 @@ const FirstSection: React.FC = () => {
           <div className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm text-muted-foreground">
             <span><b className="text-primary">04</b> módulos</span>
             <span className="h-3.5 w-px bg-border" />
-            <span><b className="text-primary">02</b> workshops</span>
+            <span><b className="text-primary">10</b> workshops</span>
             <span className="h-3.5 w-px bg-border" />
             <span><b className="text-primary">01</b> competencia científica</span>
           </div>

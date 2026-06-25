@@ -8,11 +8,11 @@ const CcemSection: React.FC = () => {
     <section className="mx-auto flex max-w-6xl flex-col items-center gap-10 px-6 py-16 lg:flex-row">
       <div className="lg:w-1/2">
         <h2 className="font-display text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-          ¿Qué puedo hacer en el CCEM UC 2024?
+          ¿Qué puedo hacer en el CCEM UC 2026?
         </h2>
         <IncisionDivider className="my-6" />
         <p className="text-lg leading-relaxed text-muted-foreground">
-          ¡Bienvenidos al Primer Congreso de Cirugía UC para Estudiantes de Medicina! Nos complace
+          ¡Bienvenidos al Segundo Congreso de Cirugía UC para Estudiantes de Medicina! Nos complace
           darles la bienvenida a este evento único, donde la innovación y el aprendizaje se unen para
           ofrecer una experiencia enriquecedora y transformadora. Durante este congreso, tendrán la
           oportunidad de interactuar con destacados profesionales de la cirugía, participar en

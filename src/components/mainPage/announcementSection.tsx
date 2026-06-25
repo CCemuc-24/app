@@ -7,16 +7,16 @@ import { SectionHeading } from '@/components/luz/SectionHeading';
 const announcements = [
   {
     id: 1,
-    title: 'Bienvenidos al I° CCEM UC',
-    date: '31/07/2024',
+    title: 'Bienvenidos al II° CCEM UC',
+    date: '01/07/2026',
     description:
-      '¡Bienvenidos al Primer Congreso de Cirugía UC para Estudiantes de Medicina! Nos complace darles la bienvenida a este evento único, donde la innovación y el aprendizaje se unen para ofrecer una experiencia enriquecedora y transformadora. Durante este congreso, tendrán la oportunidad de interactuar con destacados profesionales de la cirugía, participar en talleres prácticos, y explorar los últimos avances tecnológicos que están revolucionando el campo quirúrgico.',
+      '¡Bienvenidos al Segundo Congreso de Cirugía UC para Estudiantes de Medicina! Nos complace darles la bienvenida a este evento único, donde la innovación y el aprendizaje se unen para ofrecer una experiencia enriquecedora y transformadora. Durante este congreso, tendrán la oportunidad de interactuar con destacados profesionales de la cirugía, participar en talleres prácticos, y explorar los últimos avances tecnológicos que están revolucionando el campo quirúrgico.',
     image: Foto1,
   },
   {
     id: 2,
     title: 'Ya están abiertas las inscripciones para la competencia científica',
-    date: '31/07/2024',
+    date: '01/07/2026',
     description: 'Toda la información está disponible en las bases que puedes encontrar aquí.',
     image: Foto2,
   },

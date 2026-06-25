@@ -31,20 +31,18 @@ const CourseInfo: React.FC = () => {
     };
   }, [searchParams]);
 
+  if (courses.length === 0) {
+    return <h2 className="text-muted-foreground">Cargando...</h2>;
+  }
+
   return (
-    <div>
-      {courses.length > 0 ? (
-        <div>
-          <h2 className="text-lg mb-2">Estás inscribiendo:</h2>
-          {courses.map((course) => (
-            <div key={course.id}>
-              <p className="text-base mb-1">{course.title}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <h2 className="text-lg mb-8">Cargando...</h2>
-      )}
+    <div className="rounded-lg border border-border bg-secondary/50 p-4">
+      <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-primary">Estás inscribiendo</p>
+      <ul className="space-y-1">
+        {courses.map((course) => (
+          <li key={course.id} className="text-foreground">{course.title}</li>
+        ))}
+      </ul>
     </div>
   );
 };

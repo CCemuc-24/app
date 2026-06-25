@@ -2,6 +2,7 @@
 import React, { Suspense, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { CheckCircle2 } from 'lucide-react';
 import Header from '@/components/header';
 import BuyInfo from '@/components/buyInfo';
 import { useConfirmation } from '@/components/inscriptions/useConfirmation';
@@ -17,51 +18,40 @@ const ConfirmationContent: React.FC = () => {
   const tbkSesion = searchParams.get('TBK_ID_SESION');
   const aborted = Boolean((tbkToken && tbkOrden) || tbkSesion);
 
-  const { confirmed, courses, user, errorRedirect, resendEmail } = useConfirmation({
-    tokenWs,
-    purchaseId,
-    aborted,
-  });
+  const { confirmed, courses, user, errorRedirect, resendEmail } = useConfirmation({ tokenWs, purchaseId, aborted });
 
   useEffect(() => {
     if (errorRedirect) router.push(errorRedirect);
   }, [errorRedirect, router]);
 
-  const removeLocalStorage = () => {
-    localStorage.removeItem('user_id');
-  };
+  const removeLocalStorage = () => localStorage.removeItem('user_id');
 
   return (
-    <div className="mx-auto max-w-2xl px-4 2xl:px-0">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
-        Confirmación de Orden
-      </h2>
+    <div className="mx-auto max-w-2xl px-6">
+      <div className="mb-2 flex items-center gap-3">
+        {confirmed && <CheckCircle2 className="h-7 w-7 text-primary" />}
+        <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">Confirmación de Orden</h2>
+      </div>
       {confirmed ? (
-        <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
-          Tu número de orden es{' '}
-          <a className="font-medium text-gray-900 dark:text-white hover:underline">{purchaseId}</a>{' '}
-          . Recuerda que te llegará una copia al correo electrónico que hayas indicado en el formulario.
+        <p className="mb-8 text-muted-foreground">
+          Tu número de orden es <span className="font-mono font-medium text-foreground">{purchaseId}</span>. Recuerda que te llegará una copia al correo electrónico que hayas indicado en el formulario.
         </p>
       ) : (
-        <div>
-          <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">Confirmando tu compra...</p>
-        </div>
+        <p className="mb-8 text-muted-foreground">Confirmando tu compra...</p>
       )}
       <BuyInfo courses={courses} user={user} />
-      <div className="flex items-center space-x-4">
+      <div className="flex flex-wrap items-center gap-3">
         <Link
           href="/"
           onClick={removeLocalStorage}
-          className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+          className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-700"
         >
           Volver al inicio
         </Link>
         <button
           type="button"
-          onClick={() => {
-            void resendEmail();
-          }}
-          className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+          onClick={() => void resendEmail()}
+          className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
         >
           Reenviar correo
         </button>
@@ -74,8 +64,8 @@ const OrderConfirmation: React.FC = () => {
   return (
     <div>
       <Header />
-      <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-        <Suspense fallback={<p>Cargando...</p>}>
+      <section className="bg-background py-12 md:py-16">
+        <Suspense fallback={<p className="px-6">Cargando...</p>}>
           <ConfirmationContent />
         </Suspense>
       </section>

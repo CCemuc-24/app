@@ -1,6 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
-import generalInfo from '@/components/images/generalInfo.png';
+import { FileText } from 'lucide-react';
 
 interface InfoCardProps {
   text: string;
@@ -8,13 +7,11 @@ interface InfoCardProps {
 
 const InfoCard: React.FC<InfoCardProps> = ({ text }) => {
   return (
-    <div className="max-w-sm bg-[#116D85] border border-gray-200 rounded-[20px] shadow dark:bg-[#116D85] dark:border-gray-700">
-      <div className="relative w-full aspect-square">
-        <Image src={generalInfo} alt="Course Module" fill className="rounded-[20px] object-cover" />
-      </div>
-      <div className="flex items-center justify-center p-4">
-        <p className="text-white text-lg text-center font-open-sans">{text}</p>
-      </div>
+    <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary">
+      <span className="flex h-12 w-12 flex-none items-center justify-center rounded-lg bg-secondary text-primary">
+        <FileText className="h-6 w-6" />
+      </span>
+      <p className="font-display font-medium text-foreground">{text}</p>
     </div>
   );
 };

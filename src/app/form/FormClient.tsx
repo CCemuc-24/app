@@ -8,6 +8,10 @@ import { isRut } from '@/domain/rut';
 import { getUserByRut, getUserById, createUser } from '@/actions/users';
 import { getUserPurchases, createPurchase } from '@/actions/purchases';
 import universities from '@/utils/universities.json';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 // Fix 14: the shared validator (src/domain/rut.ts) returns ENGLISH messages; map the
 // known ones to Spanish for display. Unknown messages fall through unchanged.
@@ -178,119 +182,110 @@ const FormClient: React.FC = () => {
   return (
     <div>
       <Header />
-      <div className="min-h-screen bg-gray-100 p-0 sm:p-12">
-        <div className="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
-          <h1 className="text-2xl font-bold mb-4">Inscripción a curso</h1>
-          <div className="mb-8">
+      <div className="min-h-screen bg-background px-4 py-12 sm:px-6">
+        <div className="mx-auto max-w-md rounded-2xl border border-border bg-card px-6 py-10 shadow-sm sm:px-8">
+          <h1 className="font-display text-2xl font-semibold tracking-tight text-foreground">Inscripción a curso</h1>
+          <div className="mb-8 mt-2">
             <CourseInfo />
           </div>
-          <form id="form" noValidate>
-            <div className="relative z-0 w-full mb-5">
-              <input
+          <form id="form" noValidate className="space-y-5">
+            <div>
+              <Input
                 type="text"
                 name="name"
                 placeholder="Ingresa tus nombres"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className={`pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 ${showErrorName ? 'border-red-600' : 'border-gray-200'}`}
+                aria-invalid={showErrorName}
+                className={cn(showErrorName && 'border-destructive')}
               />
-              <span className={`text-sm ${showErrorName ? 'text-red-600' : 'hidden'}`}>Faltan tus nombres</span>
+              <span className={cn('mt-1 block text-sm text-destructive', !showErrorName && 'hidden')}>Faltan tus nombres</span>
             </div>
 
-            <div className="relative z-0 w-full mb-5">
-              <input
+            <div>
+              <Input
                 type="text"
                 name="lastname"
                 placeholder="Ingresa tus apellidos"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
-                className={`pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 ${showErrorLastName ? 'border-red-600' : 'border-gray-200'}`}
+                aria-invalid={showErrorLastName}
+                className={cn(showErrorLastName && 'border-destructive')}
               />
-              <span className={`text-sm ${showErrorLastName ? 'text-red-600' : 'hidden'}`}>Faltan tus apellidos</span>
+              <span className={cn('mt-1 block text-sm text-destructive', !showErrorLastName && 'hidden')}>Faltan tus apellidos</span>
             </div>
 
-            <div className="relative z-0 w-full mb-5">
-              <input
+            <div>
+              <Input
                 type="text"
                 name="rut"
                 placeholder="Ingresa tu RUT"
                 value={rut}
                 onChange={(e) => setRut(e.target.value)}
                 required
-                className={`pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 ${showErrorRut ? 'border-red-600' : 'border-gray-200'}`}
+                aria-invalid={showErrorRut}
+                className={cn(showErrorRut && 'border-destructive')}
               />
-              <span className={`text-sm ${showErrorRut ? 'text-red-600' : 'hidden'}`}>{errorMessageRut}</span>
+              <span className={cn('mt-1 block text-sm text-destructive', !showErrorRut && 'hidden')}>{errorMessageRut}</span>
             </div>
 
-            <div className="relative z-0 w-full mb-5">
-              <input
+            <div>
+              <Input
                 type="email"
                 name="email"
                 placeholder="Ingresa tu correo"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className={`pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 ${showErrorEmail ? 'border-red-600' : 'border-gray-200'}`}
+                aria-invalid={showErrorEmail}
+                className={cn(showErrorEmail && 'border-destructive')}
               />
-              <span className={`text-sm ${showErrorEmail ? 'text-red-600' : 'hidden'}`}>Falta tu correo</span>
+              <span className={cn('mt-1 block text-sm text-destructive', !showErrorEmail && 'hidden')}>Falta tu correo</span>
             </div>
 
-            <div className="relative z-0 w-full mb-5">
+            <div>
               <select
                 name="university"
                 value={university}
                 onChange={(e) => setUniversity(e.target.value)}
-                className={`pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 ${showErrorUniversity ? 'border-red-600' : 'border-gray-200'}`}
+                className={cn(
+                  'h-10 w-full rounded-lg border bg-card px-3 text-foreground focus:outline-none focus:ring-2 focus:ring-ring',
+                  showErrorUniversity ? 'border-destructive' : 'border-input',
+                )}
               >
                 <option value="" disabled hidden></option>
                 {universities.universidades.map((uni) => (
-                  <option key={uni} value={uni}>
-                    {uni}
-                  </option>
+                  <option key={uni} value={uni}>{uni}</option>
                 ))}
               </select>
-              {!university && (
-                <label className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">
-                  Selecciona tu Universidad
-                </label>
-              )}
-              <span className={`text-sm ${showErrorUniversity ? 'text-red-600' : 'hidden'}`}>Falta tu Universidad</span>
+              {!university && <Label className="mt-1 block text-muted-foreground">Selecciona tu Universidad</Label>}
+              <span className={cn('mt-1 block text-sm text-destructive', !showErrorUniversity && 'hidden')}>Falta tu Universidad</span>
             </div>
 
-            <div className="relative z-0 w-full mb-5">
+            <div>
               <select
                 name="year"
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
-                className={`pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 ${showErrorYear ? 'border-red-600' : 'border-gray-200'}`}
+                className={cn(
+                  'h-10 w-full rounded-lg border bg-card px-3 text-foreground focus:outline-none focus:ring-2 focus:ring-ring',
+                  showErrorYear ? 'border-destructive' : 'border-input',
+                )}
               >
                 <option value="" disabled hidden></option>
                 {['1', '2', '3', '4', '5', '6', '7'].map((y) => (
-                  <option key={y} value={y}>
-                    {y}
-                  </option>
+                  <option key={y} value={y}>{y}</option>
                 ))}
               </select>
-              {!year && (
-                <label className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">
-                  Selecciona el año de tu carrera
-                </label>
-              )}
-              <span className={`text-sm ${showErrorYear ? 'text-red-600' : 'hidden'}`}>
+              {!year && <Label className="mt-1 block text-muted-foreground">Selecciona el año de tu carrera</Label>}
+              <span className={cn('mt-1 block text-sm text-destructive', !showErrorYear && 'hidden')}>
                 Falta seleccionar el año de tu carrera
               </span>
             </div>
 
-            <button
-              id="button"
-              type="button"
-              onClick={toggleError}
-              className="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-pink-500 hover:bg-pink-600 hover:shadow-lg focus:outline-none"
-            >
-              Inscribir y pagar
-            </button>
+            <Button type="button" onClick={toggleError} className="w-full">Inscribir y pagar</Button>
           </form>
         </div>
       </div>

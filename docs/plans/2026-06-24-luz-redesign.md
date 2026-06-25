@@ -14,7 +14,7 @@ These apply to **every** task; each task's requirements implicitly include this 
 
 - **Design source of truth:** `docs/design/luz-design-system.md`. Every color/type/spacing decision derives from it. Do not invent new colors outside the documented palette.
 - **No behavior changes.** This is a reskin. Server actions, routing, data flow, and component props/signatures stay identical unless a step says otherwise.
-- **Preserve all copy strings currently asserted by tests.** Specifically keep verbatim: `CCEM UC`, `CONGRESO DE CIRUGÍA UC PARA ESTUDIANTES DE MEDICINA`, `SÉ PARTE DEL CONGRESO` (header); `I° CONGRESO DE CIRUGÍA UC`, `PARA ESTUDIANTES DE MEDICINA`, `¡Sé parte del Congreso!` (hero); `INSCRIPCIONES`, `Selecciona tu pase`, `Pase General Congreso`, `Pase Congreso + Workshop`, `Confirmar`, `${capacity} cupos disponibles`, `Seleccionado` (pricing/CourseModule); `Inscribir y pagar` + input placeholders `Ingresa tus nombres/apellidos/RUT/correo` (form); `Tu número de orden es`, `Confirmando tu compra...`, `Reenviar correo`, `Volver al inicio` (confirmation); `Cargando...`, summed price `${price}` format (buyInfo). The 8 landing sections keep their mocked render markers and order.
+- **Preserve all copy strings currently asserted by tests.** Specifically keep verbatim: `CCEM UC`, `CONGRESO DE CIRUGÍA UC PARA ESTUDIANTES DE MEDICINA`, `SÉ PARTE DEL CONGRESO` (header); `II° CONGRESO DE CIRUGÍA UC`, `PARA ESTUDIANTES DE MEDICINA`, `¡Sé parte del Congreso!` (hero); `INSCRIPCIONES`, `Selecciona tu pase`, `Pase General Congreso`, `Pase Congreso + Workshop`, `Confirmar`, `${capacity} cupos disponibles`, `Seleccionado` (pricing/CourseModule); `Inscribir y pagar` + input placeholders `Ingresa tus nombres/apellidos/RUT/correo` (form); `Tu número de orden es`, `Confirmando tu compra...`, `Reenviar correo`, `Volver al inicio` (confirmation); `Cargando...`, summed price `${price}` format (buyInfo). The 8 landing sections keep their mocked render markers and order.
 - **Native form controls stay native.** `src/app/form/FormClient.tsx` MUST keep native `<input>` (use shadcn `Input`, which renders a native `<input>`) and native `<select>` (do **not** replace with shadcn `Select` — the test relies on `combobox` role + `fireEvent.change`). Keep both `<select>`s as styled native elements.
 - **Legacy CSS lives until its last consumer is migrated.** Keep the custom utilities (`max-w-8xl`, `max-w-9xl`, `.font-lato`, `.font-open-sans`, `.font-league-spartan`, and the rest of the legacy block) in `globals.css` through the whole migration; only remove unused ones in the final cleanup task.
 - **Fonts via `next/font` only.** Remove the `@import url('https://fonts.googleapis.com/...')` lines from `globals.css`. Components must not import fonts via `@import`; they use the `font-display` / `font-sans` / `font-mono` Tailwind utilities (backed by `--font-*` theme tokens) or the legacy `.font-*` classes (which now alias the new fonts).
@@ -343,7 +343,7 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: 'CCEM UC',
-  description: 'I° Congreso de Cirugía UC para Estudiantes de Medicina',
+  description: 'II° Congreso de Cirugía UC para Estudiantes de Medicina',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -627,7 +627,7 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 - Modify (rewrite): `src/components/mainPage/firstSection.tsx`
 
 **Interfaces:**
-- Consumes: hero background `@/components/images/mainPage/fondo_1.jpeg`; lucide `ArrowRight`. Keeps strings `I° CONGRESO DE CIRUGÍA UC`, `PARA ESTUDIANTES DE MEDICINA`, CTA `¡Sé parte del Congreso!` → `/pricing`.
+- Consumes: hero background `@/components/images/mainPage/fondo_1.jpeg`; lucide `ArrowRight`. Keeps strings `II° CONGRESO DE CIRUGÍA UC`, `PARA ESTUDIANTES DE MEDICINA`, CTA `¡Sé parte del Congreso!` → `/pricing`.
 - Produces: same default export. `firstSection.test.tsx` stays green unchanged.
 
 The Luz hero is light and airy (not a dark photo wall). Use the surgical photo as a small framed accent on the right at `lg`, text-left on a sterile background; keep it single-column/centered on mobile.
@@ -651,7 +651,7 @@ const FirstSection: React.FC = () => {
             I Congreso · 31 ago — 14 sep 2024 · Santiago
           </p>
           <h1 className="font-display text-4xl font-semibold leading-[1.03] tracking-tight text-foreground md:text-5xl xl:text-6xl">
-            I° CONGRESO DE CIRUGÍA UC
+            II° CONGRESO DE CIRUGÍA UC
             <br />
             <span className="text-primary">PARA ESTUDIANTES DE MEDICINA</span>
           </h1>
@@ -802,10 +802,10 @@ import { SectionHeading } from '@/components/luz/SectionHeading';
 const announcements = [
   {
     id: 1,
-    title: 'Bienvenidos al I° CCEM UC',
+    title: 'Bienvenidos al II° CCEM UC',
     date: '31/07/2024',
     description:
-      '¡Bienvenidos al Primer Congreso de Cirugía UC para Estudiantes de Medicina! Nos complace darles la bienvenida a este evento único, donde la innovación y el aprendizaje se unen para ofrecer una experiencia enriquecedora y transformadora. Durante este congreso, tendrán la oportunidad de interactuar con destacados profesionales de la cirugía, participar en talleres prácticos, y explorar los últimos avances tecnológicos que están revolucionando el campo quirúrgico.',
+      '¡Bienvenidos al Segundo Congreso de Cirugía UC para Estudiantes de Medicina! Nos complace darles la bienvenida a este evento único, donde la innovación y el aprendizaje se unen para ofrecer una experiencia enriquecedora y transformadora. Durante este congreso, tendrán la oportunidad de interactuar con destacados profesionales de la cirugía, participar en talleres prácticos, y explorar los últimos avances tecnológicos que están revolucionando el campo quirúrgico.',
     image: Foto1,
   },
   {

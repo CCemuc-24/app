@@ -9,7 +9,7 @@ vi.mock('next/font/google', () => ({
 describe('FirstSection', () => {
   it('renders the congress headline and a pricing CTA', () => {
     render(<FirstSection />);
-    expect(screen.getByText('I° CONGRESO DE CIRUGÍA UC')).toBeInTheDocument();
+    expect(screen.getByText('II° CONGRESO DE CIRUGÍA UC')).toBeInTheDocument();
     expect(screen.getByText('PARA ESTUDIANTES DE MEDICINA')).toBeInTheDocument();
     const cta = screen.getByRole('link', { name: '¡Sé parte del Congreso!' });
     expect(cta).toHaveAttribute('href', '/pricing');

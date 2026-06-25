@@ -1,6 +1,6 @@
 # CCEM UC — Sistema de diseño «Luz»
 
-> Dirección visual aprobada para el sitio del **I° Congreso de Cirugía UC para Estudiantes
+> Dirección visual aprobada para el sitio del **II° Congreso de Cirugía UC para Estudiantes
 > de Medicina**. Esta es la fuente de verdad del diseño: paleta, tipografía, tokens,
 > componentes y voz. Todo cambio de UI deriva de este documento.
 

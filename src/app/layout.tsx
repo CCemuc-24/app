@@ -19,7 +19,7 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: 'CCEM UC',
-  description: 'I° Congreso de Cirugía UC para Estudiantes de Medicina',
+  description: 'II° Congreso de Cirugía UC para Estudiantes de Medicina',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
